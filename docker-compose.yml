@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: mock-api-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SERVER_PORT=8080
+    networks:
+      - mock-api-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/admin/endpoints"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+  
+  frontend:
+    build: ./frontend
+    container_name: mock-api-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - mock-api-network
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080
+
+networks:
+  mock-api-network:
+    driver: bridge
