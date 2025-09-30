@@ -10,6 +10,6 @@ API mock server - Upload Swagger specs, get instant mock APIs.
 
 ### Docker (Easiest)
 ```bash
-git clone https://github.com/yourusername/mocker.git
-cd mocker
+git clone https://github.com/yourusername/apiGenie
+cd mockit
 docker-compose up
